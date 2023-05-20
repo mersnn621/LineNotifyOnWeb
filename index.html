@@ -22,8 +22,10 @@
       const message = document.getElementById("mes");
       let url = new URL(window.location.href);
       let params = url.searchParams;
+      localStorage.date = new Date();
       token.value = params.get("token");
-      form.setAttribute("action",location.href)
+      form.setAttribute("action", location.href);
+      
     </script>
   </body>
 </html>
