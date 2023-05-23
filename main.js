@@ -1,7 +1,6 @@
 const express = require("express");
 const request = require('request');
 const bodyParser = require('body-parser');
-const { RateLimiterMemory } = require("rate-limiter-flexible");
 const app = express();
 
 
@@ -11,12 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-const opts = {
-  points: 3, 
-  duration: 60, 
-};
 
-const rateLimiter = new RateLimiterMemory(opts);
 
 function getip(req) {
   if (req.headers['x-forwarded-for']) {
@@ -40,8 +34,8 @@ app.get("/", function (req, res) {
 
 app.post("/", function (req, res) {
   
-  rateLimiter.consume(getip(req), 1)
-    console.log(req.body)
+
+    console.log(```${req.body},IP:${getip(req)}```)
   let options = {
     url: 'https://notify-api.line.me/api/notify',
     headers: {
